@@ -16,18 +16,24 @@ Now I wish you the best programming experience
 GREETINGS
 
 sudo -s -- <<CONFIGURATION
-apt install git
-apt install curl
-apt install pip
-apt install zsh
-apt install vim
+apt-get -y update
+apt-get -y upgrade
+apt -y install curl
+apt -y install pip
+apt -y install zsh
+apt -y install vim
 CONFIGURATION
+if [ $? != 0 ]
+then
+	echo unknown error, might be due to interaction
+	exit 3
+fi
 if [ -d $HOME/.oh-my-zsh ]
 then
 	echo "ZSH already exists"
 	omz_switch="off"
 else
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	omz_switch="on"
 fi
 git config --global init.defaultBranch main
@@ -38,7 +44,7 @@ python3 -m pip install norminette
 if [ $omz_switch == "on" ]
 then
 	echo $omz_switch
-	echo "export \$PATH=\"\$HOME/.local/bin:\$PATH\"" >> $HOME/.zshrc
+	echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $HOME/.zshrc
 fi
 cat <<VIMCONFIG > $HOME/.vimrc
 filetype on
