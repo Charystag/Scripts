@@ -23,12 +23,17 @@ apt -y install pip
 apt -y install zsh
 apt -y install vim
 apt -y install valgrind
+apt -y install bat
 CONFIGURATION
 if [ $? != 0 ]
 then
 	echo unknown error, might be due to interaction
 	exit 3
 fi
+lbin="$HOME/.local/bin"
+ubin="/usr/bin"
+mkdir -p $lbin
+ln -s $ubin/batcat $lbin/bat
 if [ -d $HOME/.oh-my-zsh ]
 then
 	echo "ZSH already exists"
