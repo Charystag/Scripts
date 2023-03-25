@@ -22,6 +22,7 @@ apt -y install curl
 apt -y install pip
 apt -y install zsh
 apt -y install vim
+apt -y install valgrind
 CONFIGURATION
 if [ $? != 0 ]
 then
