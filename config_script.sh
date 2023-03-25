@@ -24,6 +24,7 @@ apt -y install zsh
 apt -y install vim
 apt -y install valgrind
 apt -y install bat
+apt -y install clang
 CONFIGURATION
 if [ $? != 0 ]
 then
