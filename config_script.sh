@@ -48,3 +48,12 @@ let g:user42 = 'nsainton'
 let g:mail42 = 'nsainton@student.42.fr'
 set number
 VIMCONFIG
+
+plugins_folder="$HOME/.vim/plugin"
+stdheader="stdheader.vim"
+if [ ! -f $plugins_folder/stdheader.vim ]
+then
+	mkdir -p $plugins_folder
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/42Paris/42header/master/plugin/stdheader.vim -o $plugins_folder/$stdheader)"\
+	&& echo $stdheader installed || echo Unknown error
+fi
