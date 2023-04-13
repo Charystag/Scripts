@@ -7,6 +7,7 @@ then
 	RTFM! Often the question your asking has been forecasted by the ones
 	who developped the tool you're now using and more often than not the
 	answer is in the doc.
+	Don't forget to upgrade your system to the latest version too
 	Write an email to nsainton@student.42.fr in case of trouble.
 	Now I wish you the best programming experience
 	GREETINGS
@@ -21,8 +22,8 @@ then
 fi
 
 sudo -s -- <<CONFIGURATION
-apt-get -y update
-apt-get -y upgrade
+apt -y update
+apt -y upgrade
 apt -y install curl
 apt -y install pip
 apt -y install zsh
