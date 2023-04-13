@@ -56,6 +56,7 @@ fi
 git config --global init.defaultBranch main
 git config --global user.email $2
 git config --global user.name $1
+git config --global core.editor "vim"
 python3 -m pip install --upgrade pip setuptools
 python3 -m pip install norminette
 if [ $omz_switch == "on" ]
