@@ -31,9 +31,11 @@ apt -y install vim
 apt -y install valgrind
 apt -y install bat
 apt -y install clang
-apt -y install libreadline
-apt -y install libX11 libXext
+apt -y autoremove
 CONFIGURATION
+#apt -y install libreadline
+#apt -y install libX11 libXext
+#These lines seems to make the configuration script buggy
 if [ $? != 0 ]
 then
 	echo unknown error, might be due to interaction
