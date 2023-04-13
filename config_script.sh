@@ -30,10 +30,10 @@ apt -y install zsh
 apt -y install vim
 apt -y install valgrind
 apt -y install bat
-apt -y install clang
 apt -y autoremove
+apt -y install libreadline6-dev
 CONFIGURATION
-#apt -y install libreadline
+#apt -y install clang
 #apt -y install libX11 libXext
 #These lines seems to make the configuration script buggy
 if [ $? != 0 ]
