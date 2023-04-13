@@ -1,19 +1,24 @@
 #!/bin/bash
+if [[ ! -f .fl ]]
+then
+	cat <<-GREETINGS
+	Welcome to the configuration script for your virtual (or not) machine
+	Before the script starts and you are ready to use the VM one warning
+	RTFM! Often the question your asking has been forecasted by the ones
+	who developped the tool you're now using and more often than not the
+	answer is in the doc.
+	Write an email to nsainton@student.42.fr in case of trouble.
+	Now I wish you the best programming experience
+	GREETINGS
+	touch .fl
+	exit
+fi
 if [ "$2" == "" ]
 then
 	echo "Please enter your username and your email for git config"
 	echo "Use the script as follows : ./path_to_script username email"
 	exit 3
 fi
-cat <<GREETINGS
-Welcome to the configuration script for your virtual (or not) machine
-Before the script starts and you are ready to use the VM one warning
-RTFM! Often the question your asking has been forecasted by the ones
-who developped the tool you're now using and more often than not the
-answer is in the doc.
-Write an email to nsainton@student.42.fr in case of trouble.
-Now I wish you the best programming experience
-GREETINGS
 
 sudo -s -- <<CONFIGURATION
 apt-get -y update
