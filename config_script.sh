@@ -34,6 +34,7 @@ apt -y autoremove
 apt -y install libreadline6-dev
 apt -y install libX11-dev
 apt -y install libXext-dev
+apt -y install libbsd-dev
 CONFIGURATION
 #apt -y install clang
 #apt -y install libX11 libXext
