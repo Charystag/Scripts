@@ -32,6 +32,7 @@ apt -y install valgrind
 apt -y install bat
 apt -y autoremove
 apt -y install libreadline6-dev
+apt -y install libX11-dev
 CONFIGURATION
 #apt -y install clang
 #apt -y install libX11 libXext
