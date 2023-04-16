@@ -32,8 +32,8 @@ apt -y install valgrind
 apt -y install bat
 apt -y autoremove
 apt -y install libreadline6-dev
-apt -y install libX11-dev
-apt -y install libXext-dev
+apt -y install libx11-dev
+apt -y install libxext-dev
 apt -y install libbsd-dev
 CONFIGURATION
 #apt -y install clang
