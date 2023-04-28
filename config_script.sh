@@ -35,6 +35,7 @@ apt -y install libreadline6-dev
 apt -y install libx11-dev
 apt -y install libxext-dev
 apt -y install libbsd-dev
+apt -y install xclip
 CONFIGURATION
 #apt -y install clang
 #apt -y install libX11 libXext
