@@ -8,6 +8,8 @@ then
 	who developped the tool you're now using and more often than not the
 	answer is in the doc.
 	Don't forget to upgrade your system to the latest version too
+	If zsh is not your login shell after running the script
+	run : "chsh -s \$(which zsh)"
 	Write an email to nsainton@student.42.fr in case of trouble.
 	Now I wish you the best programming experience
 	GREETINGS
