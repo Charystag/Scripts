@@ -68,6 +68,10 @@ python3 -m pip install norminette
 if [ $omz_switch == "on" ]
 then
 	echo $omz_switch
+	cat <<-ALIASES >> $HOME/.zshrc
+		alias wgcc="gcc -Wall -Wextra -Werror"
+		alias norme="norminette -RCheckForbiddenSourceHeader"
+	ALIASES
 	echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $HOME/.zshrc
 fi
 cat <<VIMCONFIG > $HOME/.vimrc
