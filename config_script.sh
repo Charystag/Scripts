@@ -78,8 +78,8 @@ cat <<VIMCONFIG > $HOME/.vimrc
 filetype on
 set autoindent
 set tabstop=4
-let g:user42 = 'nsainton'
-let g:mail42 = 'nsainton@student.42.fr'
+let g:user42 = '$1'
+let g:mail42 = '$2'
 set number
 VIMCONFIG
 
