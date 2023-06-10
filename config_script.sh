@@ -10,6 +10,8 @@ then
 	Don't forget to upgrade your system to the latest version too
 	If zsh is not your login shell after running the script
 	run : "chsh -s \$(which zsh)"
+	You can also add the plugin "colored-man-pages" to your .zshrc
+	(should be around line 73)
 	Write an email to nsainton@student.42.fr in case of trouble.
 	Now I wish you the best programming experience
 	GREETINGS
