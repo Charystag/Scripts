@@ -40,6 +40,7 @@ apt -y install libx11-dev
 apt -y install libxext-dev
 apt -y install libbsd-dev
 apt -y install xclip
+apt -y install python3.10-venv
 CONFIGURATION
 #apt -y install clang
 #apt -y install libX11 libXext
