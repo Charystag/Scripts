@@ -42,8 +42,10 @@ apt -y install libbsd-dev
 apt -y install xclip
 apt -y install python3.10-venv
 CONFIGURATION
+#The clang lines allows to install clang compiler and scan-build static llvm analyser
+#They seem to make the script buggy but feel free to install them by yourself
 #apt -y install clang
-#apt -y install libX11 libXext
+#apt -y install clang-tools
 #These lines seems to make the configuration script buggy
 if [ $? != 0 ]
 then
