@@ -75,6 +75,7 @@ then
 	echo $omz_switch
 	cat <<-ALIASES >> $HOME/.zshrc
 		alias wgcc="gcc -Wall -Wextra -Werror"
+		alias wclang="clang -Wall -Wextra -Werror"
 		alias norme="norminette -RCheckForbiddenSourceHeader"
 	ALIASES
 	echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $HOME/.zshrc
