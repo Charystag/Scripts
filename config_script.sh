@@ -28,6 +28,7 @@ fi
 sudo -s -- <<CONFIGURATION
 apt -y update
 apt -y upgrade
+apt -y install apt-file
 apt -y install curl
 apt -y install pip
 apt -y install zsh
