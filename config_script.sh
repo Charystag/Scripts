@@ -42,6 +42,7 @@ apt -y install libxext-dev
 apt -y install libbsd-dev
 apt -y install xclip
 apt -y install python3.10-venv
+apt -y install emacs
 CONFIGURATION
 #The clang lines allows to install clang compiler and scan-build static llvm analyser
 #They seem to make the script buggy but feel free to install them by yourself
