@@ -89,6 +89,7 @@ set tabstop=4
 let g:user42 = '$1'
 let g:mail42 = '$2'
 set number
+colorscheme darkblue
 VIMCONFIG
 
 plugins_folder="$HOME/.vim/plugin"
