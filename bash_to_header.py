@@ -11,7 +11,7 @@ def to_header(line):
 		elif i == '\n' :
 			new_line += "\\n"
 		elif i == '\\' :
-			new_line += "\\"
+			new_line += "\\\\"
 		else :
 			new_line += i
 	new_line += '\" \\\n'
