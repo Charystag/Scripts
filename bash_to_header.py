@@ -10,6 +10,8 @@ def to_header(line):
 			new_line += "\\t"
 		elif i == '\n' :
 			new_line += "\\n"
+		elif i == '\\'
+			new_line += "\\"
 		else :
 			new_line += i
 	new_line += '\" \\\n'
