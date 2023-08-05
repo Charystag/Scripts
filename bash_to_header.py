@@ -12,7 +12,7 @@ def to_header(line):
 			new_line += "\\n"
 		else :
 			new_line += i
-	new_line += '\" \\ \n'
+	new_line += '\" \\\n'
 	return (new_line)
 
 arglen = len(sys.argv)
