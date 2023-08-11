@@ -33,6 +33,7 @@ apt -y install curl
 apt -y install pip
 apt -y install zsh
 apt -y install vim
+apt -y install npm
 apt -y install valgrind
 apt -y install bat
 apt -y autoremove
