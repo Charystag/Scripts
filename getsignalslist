@@ -1,0 +1,17 @@
+#!/bin/bash
+#The test program should be a simple program that gets in pause as soon at it is launched
+#For example (in C)
+##include <unistd.h>
+#int main(void){pause();return(0);}
+if [ $(which zsh) ]
+then
+	echo bonjour
+else
+	echo "This script needs zsh"
+	exit 1
+fi
+signal_list=($(zsh -c "kill -l"))
+test=please_kill_me
+
+for i in ${!signal_list[@]}; do  ./$test & pids[$i]="$!" ; done
+for i in ${!pids[@]}; do kill "-"${signal_list[$i]} ${pids[$i]} ; sleep 1; done
