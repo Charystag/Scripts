@@ -14,4 +14,4 @@ signal_list=($(zsh -c "kill -l"))
 test=please_kill_me
 
 for i in ${!signal_list[@]}; do  ./$test & pids[$i]="$!" ; done
-for i in ${!pids[@]}; do kill "-"${signal_list[$i]} ${pids[$i]} ; sleep 1; done
+for i in ${!pids[@]}; do echo SIG${signal_list[$i]}; kill "-"${signal_list[$i]} ${pids[$i]} ; sleep 1; done
