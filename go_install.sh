@@ -1,7 +1,8 @@
+#!/usr/bin/bash
 extension="tar.gz"
 source="go1.20.6.linux-"
-arm="$source""arm64"."$extension"
-amd="$source""amd64"."$extension"
+arm="$source""arm64"'.'"$extension"
+amd="$source""amd64"'.'"$extension"
 to_install=""
 if [ "$(uname -p)" = "aarch64" ]
 then
