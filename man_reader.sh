@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # shellcheck disable=SC1090 # sources will never be constant
 
 export MAN_PAGES=1

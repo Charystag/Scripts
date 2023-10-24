@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 :<<-'COMMENT'
 	The function error exit takes a list of params terminated by an exit code

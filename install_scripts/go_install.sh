@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 extension="tar.gz"
 source="go1.20.6.linux-"
 arm="$source""arm64"'.'"$extension"

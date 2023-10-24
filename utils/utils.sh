@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # shellcheck disable=SC1090 # sources for file scripts will never be constant
 
 export UTILS=1
