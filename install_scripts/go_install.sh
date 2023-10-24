@@ -12,6 +12,8 @@ else
 fi
 echo $to_install
 exit 1
+
+# shellcheck disable=SC2317
 sudo -s -- <<INSTALL
 curl -fsSLO https://go.dev/dl/$to_install
 rm -rf /usr/local/go && tar -C /usr/local -xzf $to_install
