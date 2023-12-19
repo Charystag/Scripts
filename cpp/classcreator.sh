@@ -13,7 +13,7 @@ usage(){
 }
 
 getname(){
-	if echo "$0" | grep -E "^/proc/self/fd"
+	if echo "$0" | grep -E "^/proc/self/fd" 1>/dev/null
 	then
 		name="classcreator"
 	else
