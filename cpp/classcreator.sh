@@ -12,8 +12,25 @@ usage(){
 	USAGE
 }
 
-if [ "$1" = "" ]
-then
-	usage
-	return 0
-fi
+getname(){
+	if echo "$0" | grep -E "^/proc/self/fd"
+	then
+		name="classcreator"
+	else
+		name="$0"
+	fi
+}
+
+main(){
+	local name
+
+	if [ "$1" = "" ]
+	then
+		usage
+		return 0
+	fi
+	getname
+	echo "My name is : $name"
+}
+
+main "$@"
