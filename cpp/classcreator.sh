@@ -46,17 +46,54 @@ create_header(){
 	upp="$(echo "$class" | tr [:lower:] [:upper:])"
 	if ! create_file "$header" ; then return 1 ; fi
 	cat >"$header" <<HEADER
-#ifndef __$upp\\_H__
-# define __$upp\\_H__
-class	$class\{
-	$class();
-	$class( const $class & );
-	$class& operator=( const $class & );
-	virtual ~$class();
-}
+#ifndef __${upp}_H__
+# define __${upp}_H__
+
+class	$class{
+	public:
+		$class();
+		$class( const $class & );
+		$class& operator=( const $class & );
+		virtual ~$class();
+};
 #endif
 HEADER
 	return 0
+}
+
+:<<-"CREATE_CLASS"
+CREATE_CLASS
+create_class(){
+	local class
+	local classfile
+
+	if [ "$1" = "" ] ; then return 1 ; fi
+	class="$1"
+	classfile="$class".cpp
+	if ! create_file "$classfile" ; then return 1 ; fi
+	cat >"$classfile" <<CLASSFILE
+#include "${class}.h"
+#include <iostream>
+
+$class::$class(){
+	std::clog << "$class Default Constructor Called" << std::endl;
+}
+
+$class::$class( const $class & other ){
+	std::clog << "$class Copy Constructor Called" << std::endl;
+	(void)other;
+}
+
+$class&	$class::operator=( const $class & other ){
+	std::clog << "$class Copy Assignment Operator Called" << std::endl;
+	(void)other;
+	return (*this);
+}
+
+$class::~$class(){
+	std::clog << "$class Destructor Called" << std::endl;
+}
+CLASSFILE
 }
 
 main(){
@@ -70,6 +107,7 @@ main(){
 	fi
 	echo "My name is : $name"
 	create_header "$1"
+	create_class "$1"
 }
 
 main "$@"
