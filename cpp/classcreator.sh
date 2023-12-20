@@ -42,7 +42,7 @@ create_header(){
 
 	if [ "$1" = "" ] ; then return 1 ; fi
 	class="$1"
-	header="$class".h
+	if [ "$2" != "" ]; then header="$2"; else header="$class".h; fi
 	upp="$(echo "$class" | tr [:lower:] [:upper:])"
 	if ! create_file "$header" ; then return 1 ; fi
 	cat >"$header" <<HEADER
@@ -98,6 +98,7 @@ CLASSFILE
 
 main(){
 	local name
+	local dir
 
 	getname
 	if [ "$1" = "" ]
@@ -105,9 +106,12 @@ main(){
 		usage
 		return 0
 	fi
+	if [ "$3" != "" ]; then header="$2"; dir="$3";fi
+	dir="$2"
 	echo "My name is : $name"
-	create_header "$1"
-	create_class "$1"
+	if ! create_header "$1" "$dir" ; then return 1; fi
+	if ! create_class "$1" "$dir" ; then  return 1; fi
+	return 0;
 }
 
 main "$@"
