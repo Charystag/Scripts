@@ -1,17 +1,18 @@
 #!/usr/bin/env sh
 
 usage(){
-	declare -I name
+	local name
 
-	cat <<-USAGE
-	Usage: $name classname [dir] [header_dir class_dir]
-	Examples:
-		-$name classname -> creates a classname.cpp and classname.h class file in the current directory
-		-$name classname dir -> creates a dir/classname.cpp and dir/classname.h 
-		class file in the specified directory
-		-$name classname header_dir class_dir -> creates a header_dir/classcreator.h and a 
-		class_dir/classname.cpp file in the specified directories for header files and source files
-	USAGE
+	name="$1"
+	cat <<USAGE
+Usage: $name classname [dir] [header_dir class_dir]
+Examples:
+	-$name classname -> creates a classname.cpp and classname.h class file in the current directory
+	-$name classname dir -> creates a dir/classname.cpp and dir/classname.h 
+	class file in the specified directory
+	-$name classname header_dir class_dir -> creates a header_dir/classname.h and a 
+	class_dir/classname.cpp file in the specified directories for header files and source files
+USAGE
 }
 
 :<<-"GETNAME"
@@ -33,16 +34,35 @@ create_file(){
 	return 0;
 }
 
+:<<-"ADD_SLASH_DIR"
+	Function that adds a trailing '/' if needed to a directory name
+ADD_SLASH_DIR
+add_slash_dir(){
+	
+}
+
+:<<-"GETPATHS"
+	Function that gets the paths to the class header file and to the class source
+	According to the arguments that were provided to the script
+GETPATHS
+getpaths(){
+	local dir
+
+	if [ "$2" = "" ] ; then class_header="$1".h ; class_source="$1".cpp; return 0; fi
+	dir="$2"
+	add_slash_dir
+	if [ "$3" = "" ] ; then class_header="$dir"
+}
+
+
 :<<-"CREATE_HEADER"
 CREATE_HEADER
 create_header(){
 	local header
 	local upp
-	local low
 
 	if [ "$1" = "" ] ; then return 1 ; fi
 	class="$1"
-	if [ "$2" != "" ]; then header="$2"; else header="$class".h; fi
 	upp="$(echo "$class" | tr [:lower:] [:upper:])"
 	if ! create_file "$header" ; then return 1 ; fi
 	cat >"$header" <<HEADER
@@ -94,11 +114,13 @@ $class::~$class(){
 	std::clog << "$class Destructor Called" << std::endl;
 }
 CLASSFILE
+	return 0
 }
 
 main(){
 	local name
-	local dir
+	local class_source
+	local class_header
 
 	getname
 	if [ "$1" = "" ]
@@ -106,9 +128,7 @@ main(){
 		usage
 		return 0
 	fi
-	if [ "$3" != "" ]; then header="$2"; dir="$3";fi
-	dir="$2"
-	echo "My name is : $name"
+	getpaths "$@"
 	if ! create_header "$1" "$dir" ; then return 1; fi
 	if ! create_class "$1" "$dir" ; then  return 1; fi
 	return 0;
