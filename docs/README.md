@@ -6,7 +6,7 @@ The newest one will be at the top of the list.
 Each one of them will have its own documentation which will be linked here
 
 ## Scripts
-- [man\_reader](/docs/man_reader.EN.md) (french documentation [here](/docs/man_reader.FR.md))
+- [man\_reader](https://github.com/nsainton/man_reader)
 	- A script that allows to read the man in a user friendly manner.
 - [config\_script](#)
 	- A script that installs all the required dependancies on a linux distribution \
