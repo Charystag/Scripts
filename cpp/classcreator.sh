@@ -30,7 +30,8 @@ CREATE_FILE
 create_file(){
 	if [ "$1" = "" ] ; then return 1; fi
 	if [ -f "$1" ] ; then shred -f -n 10 -u -z "$1"; fi
-	if ! touch "$1" ; then echo "Couldn't create file : $1"; return 1;fi
+	if [ ! -d "$(dirname "$1")" ] ; then mkdir -p "$(dirname "$1")" ; fi
+	if ! touch "$1" ; then echo "Couldn't create file : $1"; return 1 ; fi
 	return 0;
 }
 
@@ -38,7 +39,12 @@ create_file(){
 	Function that adds a trailing '/' if needed to a directory name
 ADD_SLASH_DIR
 add_slash_dir(){
-	
+	local tmp
+
+	tmp="$(echo "$dir" | rev)"
+	if [ "$(echo "$tmp" | cut -c 1-1)" = "/" ] ; then return 0 ; fi
+	dir="${dir}/"
+	return 0
 }
 
 :<<-"GETPATHS"
@@ -51,7 +57,11 @@ getpaths(){
 	if [ "$2" = "" ] ; then class_header="$1".h ; class_source="$1".cpp; return 0; fi
 	dir="$2"
 	add_slash_dir
-	if [ "$3" = "" ] ; then class_header="$dir"
+	if [ "$3" = "" ] ; then class_header="${dir}/${1}.h" ; class_source="${dir}/${1}.cpp"; return 0; fi
+	class_header="${dir}${1}.h"
+	dir="$3"
+	add_slash_dir
+	class_source="${dir}${1}.cpp"
 }
 
 
@@ -61,8 +71,9 @@ create_header(){
 	local header
 	local upp
 
-	if [ "$1" = "" ] ; then return 1 ; fi
+	if [ "$2" = "" ] ; then return 1 ; fi
 	class="$1"
+	header="$2"
 	upp="$(echo "$class" | tr [:lower:] [:upper:])"
 	if ! create_file "$header" ; then return 1 ; fi
 	cat >"$header" <<HEADER
@@ -87,9 +98,9 @@ create_class(){
 	local class
 	local classfile
 
-	if [ "$1" = "" ] ; then return 1 ; fi
+	if [ "$2" = "" ] ; then return 1 ; fi
 	class="$1"
-	classfile="$class".cpp
+	classfile="$2"
 	if ! create_file "$classfile" ; then return 1 ; fi
 	cat >"$classfile" <<CLASSFILE
 #include "${class}.h"
@@ -129,8 +140,8 @@ main(){
 		return 0
 	fi
 	getpaths "$@"
-	if ! create_header "$1" "$dir" ; then return 1; fi
-	if ! create_class "$1" "$dir" ; then  return 1; fi
+	if ! create_header "$1" "$class_header" ; then return 1; fi
+	if ! create_class "$1" "$class_source" ; then  return 1; fi
 	return 0;
 }
 
