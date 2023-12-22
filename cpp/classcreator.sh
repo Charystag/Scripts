@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 
 usage(){
-	local name
-
-	name="$1"
 	cat <<USAGE
 Usage: $name classname [dir] [header_dir class_dir]
 Examples:
