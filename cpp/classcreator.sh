@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# shellcheck disable=SC3043 # local is present in a wide (but not all) number of shells
+# so it is almost POSIX to use it but not strictly POSIX
 
 usage(){
 	cat <<USAGE
@@ -71,7 +73,7 @@ create_header(){
 	if [ "$2" = "" ] ; then return 1 ; fi
 	class="$1"
 	header="$2"
-	upp="$(echo "$class" | tr [:lower:] [:upper:])"
+	upp="$(echo "$class" | tr '[:lower:]' '[:upper:]')"
 	if ! create_file "$header" ; then return 1 ; fi
 	cat >"$header" <<HEADER
 #ifndef __${upp}_H__
