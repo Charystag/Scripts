@@ -5,15 +5,37 @@ declare CRESET="\e[0m"
 
 print_and_run(){
 	local command="$1"
-	local time="$2"
+	local description="$2"
+	local time="$3"
 
 	if [ "$command" = "" ]; then command=":"; fi
-	if [ "$time" = "" ] ; then time="3s"; fi
+	if [ "$time" = "" ] ; then time="5s"; fi
+	if [ "$description" = "" ]; then description="" ; fi
 	clear
-	echo ">$command"
+	echo -n ">$command"
+	if [ "$description" != "" ] ; then echo " -> $description"; else echo"" ; fi
 	sleep "$time"
 	eval "$command"
 	sleep "$time"
+}
+
+run_commands_file(){
+	declare	command
+	declare description
+	declare commands_file="$1"
+	declare descriptions_file="$2"
+
+	if [ "$1" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
+	paste "$commands_file" "$descriptions_file" | while read -r command description
+		do print_and_run "$command" "$description";
+	done
+}
+
+main(){
+	declare commands="$1"
+	declare	descriptions="$2"
+
+	if [ "$1" == "" ] ; then echo "Please provide a commands file"; exit 1; fi
 }
 
 declare -a commands=( "ls" )
