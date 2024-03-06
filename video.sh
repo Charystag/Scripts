@@ -24,7 +24,7 @@ print_and_run(){
 	echo -n ">$command"
 	if [ "$description" != "" ] ; then echo " -> $description"; else echo"" ; fi
 	sleep "$time"
-	eval "$command"
+	if ! eval "$command" ; then return 1; fi
 	sleep "$time"
 }
 
@@ -59,8 +59,8 @@ main(){
 	declare commands_file="$1"
 	declare	descriptions_file="$2"
 
-	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file" "$descriptions_file"; fi
-	if [ "${#commands[@]}" -gt "0" ] ; then run_commands_array; fi
+	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file" "$descriptions_file";  exit 0 ; fi
+	if [ "${#commands[@]}" -gt "0" ] ; then run_commands_arrays; exit 0 ; fi
 	help
 	exit 1
 }
