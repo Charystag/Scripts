@@ -15,3 +15,5 @@ to program in C for 42 projects
 	- A script that creates a directory and lists all the man pages within it
 - [bash\_to\_header](#)
 	- A script that converts a bash script to a C header file
+- [classcreator](https://github.com/nsainton/classcreator)
+	- A script that creates a template header and source file for a given class name
