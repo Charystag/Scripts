@@ -4,7 +4,7 @@ declare RED="\e[0;31m"
 declare CRESET="\e[0m"
 
 declare -a commands
-declare -a description
+declare -a descriptions
 
 #commands+=( "ls" )
 #commands+=( "bash <(curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/classcreator/main/classcreator.sh || echo exit 1) Test includes sources" )
