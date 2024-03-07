@@ -12,6 +12,16 @@ declare -a description
 #commands+=( "ls" )
 
 
+print_command(){
+	local command="$1"
+	local description="$2"
+	local time="$3"
+
+	echo -n ">$command"
+	if [ "$description" != "" ] ; then echo " <-> $description"; else echo ""; fi
+	sleep "$time"
+}
+
 print_and_run(){
 	local command="$1"
 	local description="$2"
@@ -21,23 +31,36 @@ print_and_run(){
 	if [ "$time" = "" ] ; then time="5s"; fi
 	if [ "$description" = "" ]; then description="" ; fi
 	clear
-	echo -n ">$command"
-	if [ "$description" != "" ] ; then echo " -> $description"; else echo"" ; fi
-	sleep "$time"
+	if [ "${command:0:1}" != "@" ] ; then print_command "$command" "$description" "$time"
+	else command="${command:1}" ; fi
 	if ! eval "$command" ; then return 1; fi
 	sleep "$time"
 }
 
-run_commands_file(){
+run_commands_files(){
 	declare	command
 	declare description
 	declare commands_file="$1"
 	declare descriptions_file="$2"
 
-	if [ "$1" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
+	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
 	paste "$commands_file" "$descriptions_file" | while IFS=$'\t' read -r command description
 		do if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
 	done
+}
+
+run_commands_file(){
+	declare	command
+	declare description
+	declare	commands_file="$1"
+
+	echo "Here"
+	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
+	while IFS="|" read -r command description
+	do
+		if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
+	done < "$commands_file"
+
 }
 
 run_commands_arrays(){
@@ -50,8 +73,12 @@ help(){
 	cat <<"HELP"
 Please either fill the commands and descriptions array in the script
 or run the script providing a commands_file and a descriptions_file
+You can specify commands that won't be printed (nor their descriptions)
+by prefixing the line with a '@'
 -You can run the script this way :
 	./video.sh commands_file descriptions_file
+	./video.sh commands_file (with commands and descriptions separated by a '|' symbol)
+	./video.sh
 HELP
 }
 
@@ -59,7 +86,8 @@ main(){
 	declare commands_file="$1"
 	declare	descriptions_file="$2"
 
-	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file" "$descriptions_file";  exit 0 ; fi
+	if [ "$commands_file" != "" ] && [ "$descriptions_file" != "" ] ; then run_commands_files "$commands_file" "$descriptions_file";  exit 0 ; fi
+	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file"; exit 0; fi
 	if [ "${#commands[@]}" -gt "0" ] ; then run_commands_arrays; exit 0 ; fi
 	help
 	exit 1
