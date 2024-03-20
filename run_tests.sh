@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# shellcheck disable=SC3043
 
 get_executable_name(){
 	local makefile
@@ -18,30 +19,38 @@ run_tests(){
 
 	name="$(get_executable_name NAME)"
 	make || { clear ; echo "Error running make" ; return 1 ; }
-	eval "$test_command" ./"$name" "$@"
+	if [ "$debug" = "1" ] ; then echo "This is the test_command : $test_command" ; fi
+	eval "$test_command" ./"$name" "$*"
 }
 
 parse_options(){
 	local optstring
 	local option
 
-	optstring="t:s:"
-	while getops "$optrstring" option ; do
+	optstring="t:o:d"
+	while getopts "$optstring" option ; do
 	case "$option" in
-		s)
+		o)
 			test_command="$test_command $OPTARG" ;;
 		t)
+			echo "$OPTARG"
 			test_command="$OPTARG" ;;
+		d)
+			debug=1 ;;
+		?)
+			echo "usage: ./run_tests [-t test_command] [-o option] [-d] args" ; kill -INT $$ ;;
 	esac
 	done
 }
 
 main(){
 	local test_command
+	local debug
 
-	test_command="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-fds=all"
-	parse_options
-	shift $(($OPTIND - 1))
+	test_command="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes"
+	debug=0
+	parse_options "$@"
+	shift $((OPTIND - 1))
 	run_tests "$@"
 }
 
