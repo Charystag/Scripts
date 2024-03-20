@@ -15,7 +15,6 @@ MAKEFILE
 
 run_tests(){
 	local name
-	local test_command
 
 	name="$(get_executable_name NAME)"
 	if [ "$1" != "" ] ; then test_command="$1" ; shift; fi
@@ -23,7 +22,27 @@ run_tests(){
 	eval "$test_command" ./"$name" "$@"
 }
 
+parse_options(){
+	local optstring
+	local option
+
+	optstring="t:s:"
+	while getops "$optrstring" option ; do
+	case "$option" in
+		s)
+			test_command="$test_command $OPTARG" ;;
+		t)
+			test_command="$OPTARG" ;;
+	esac
+	done
+}
+
 main(){
+	local test_command
+
+	test_command="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-fds=all"
+	parse_options
+	shift $(($OPTIND - 1))
 	run_tests "$@"
 }
 
